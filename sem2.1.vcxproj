@@ -132,6 +132,8 @@
   <ItemGroup>
     <Text Include="base.txt" />
     <Text Include="city.txt" />
+    <Text Include="least.txt" />
+    <Text Include="most.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="least.bin" />

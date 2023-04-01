@@ -63,7 +63,14 @@ struct pinfo {
 	address adr;
 	int phone;
 
-	pinfo() {}
+	pinfo() {
+		edu = 0;
+		fam = 0;
+		phone = 0;
+		prof = 0;
+		childAmount = 0;
+
+	}
 };
 
 ifstream& operator >> (ifstream& in, pinfo& a) {
@@ -130,7 +137,6 @@ void TaskB() {
 	ifstream least("least.bin", ios::binary);
 	ifstream most("most.bin", ios::binary);
 	pinfo p1, p2;
-	char base1[30], base2[30];
 	cout << setw(90) << setfill('-') << '\n';
 	cout.setf(ios::left);
 	cout << setw(44) << setfill(' ') << "|          Наименьшая группа" << setw(44) << "|               Наибольшая группа" << '|' << endl;
@@ -143,6 +149,26 @@ void TaskB() {
 		cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
 		cout << setw(44) << setfill('-') << '|' << setw(44) << '|' << '|' << endl;
 	}
+	if (least.eof()) {
+		while (!most.eof()) {
+			most.read((char*)&p1, sizeof(p1));
+			cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
+			cout << '|' << setfill(' ') << setw(43) << p1 << setw(44) << '|' << '|' << endl;
+			cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
+			cout << setw(44) << setfill('-') << '|' << setw(44) << '|' << '|' << endl;
+		}
+	}
+	else if (most.eof()) {
+		while (!least.eof()) {
+			least.read((char*)&p2, sizeof(p2));
+			cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
+			cout << '|' << setfill(' ') << setw(43) << ' ' << '|' << setw(43) << p2 << '|' << endl;
+			cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
+			cout << setw(44) << setfill('-') << '|' << setw(44) << '|' << '|' << endl;
+		}
+	}
+	least.close();
+	most.close();
 }
 
 int main() {
