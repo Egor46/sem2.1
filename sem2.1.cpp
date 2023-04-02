@@ -93,6 +93,11 @@ ofstream& operator << (ofstream& out, pinfo a) {
 	return out;
 }
 
+//void println(pinfo a) {
+//	cout << '|' << setw(MAX_NAME) << setfill(' ') << a.familia << ' ' << a.name[0] << ". " << a.patronymic[0] << ". " << 2023 - a.bdate.year << ' ' << a.fam << ' ' <<
+//		a.childAmount << ' ' << setw(44 - MAX_NAME - 15) << a.prof;
+//}
+
 void createBinary(ifstream& in) {
 	ofstream out("work.bin", ios::binary);
 	pinfo t;
@@ -146,6 +151,9 @@ void TaskB() {
 		most.read((char*)&p2, sizeof(p2));
 		cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
 		cout << '|' << setfill(' ') << setw(43) << p1 << '|' << setw(43) << p2 << '|' << endl;
+		
+		//println(p1); println(p2); cout << '|' << endl;
+		
 		cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
 		cout << setw(44) << setfill('-') << '|' << setw(44) << '|' << '|' << endl;
 	}
@@ -154,6 +162,9 @@ void TaskB() {
 			most.read((char*)&p1, sizeof(p1));
 			cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
 			cout << '|' << setfill(' ') << setw(43) << p1 << setw(44) << '|' << '|' << endl;
+			
+			//println(p1); cout << setw(44) << '|' << '|' << endl;
+			
 			cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
 			cout << setw(44) << setfill('-') << '|' << setw(44) << '|' << '|' << endl;
 		}
