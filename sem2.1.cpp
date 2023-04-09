@@ -69,7 +69,6 @@ struct pinfo {
 		phone = 0;
 		prof = 0;
 		childAmount = 0;
-
 	}
 };
 
@@ -82,7 +81,7 @@ ifstream& operator >> (ifstream& in, pinfo& a) {
 
 ostream& operator << (ostream& out, pinfo a) {
 	string base;
-	base = (string)a.familia + ' ' + a.name[0] + ". " + a.patronymic[0] + ". " + to_string(2023 - a.bdate.year) + ' ' + a.fam + ' ' + to_string(a.childAmount) + ' ' + a.prof;
+	base = (string)a.familia + ' ' + a.name[0] + ". " + a.patronymic[0];
 	out << base;
 	return out;
 }
@@ -112,7 +111,7 @@ void TaskAAux(ifstream& in, Edu& min, Edu& max) {
 	pinfo p;
 	int mm[] = { 0, 0 ,0 }; // В C Н
 	while (!in.eof()) {
-		in.read((char*)&p, sizeof(p));
+		in >> p;
 		if (p.edu == 'В') mm[0]++;
 		else if (p.edu == 'С') mm[1]++;
 		else mm[2]++;
@@ -126,7 +125,7 @@ void TaskAMain(ifstream& in, Edu min, Edu max) {
 	ofstream maxL("most.bin", ios::binary);
 	pinfo p;
 	while (!in.eof()) {
-		in.read((char*)&p, sizeof(p));
+		in >> p;
 		if (p.edu == min) {
 			minL.write((char*)&p, sizeof(p));
 		}
@@ -142,40 +141,48 @@ void TaskB() {
 	ifstream least("least.bin", ios::binary);
 	ifstream most("most.bin", ios::binary);
 	pinfo p1, p2;
-	cout << setw(90) << setfill('-') << '\n';
+	cout << setw(88) << setfill('-') << '\n';
 	cout.setf(ios::left);
-	cout << setw(44) << setfill(' ') << "|          Наименьшая группа" << setw(44) << "|               Наибольшая группа" << '|' << endl;
-	cout << setw(44) << setfill('-') << '|' << setw(44) << '|' << '|' << endl;
+	cout << setw(43) << setfill(' ') << "|          Наименьшая группа" << setw(43) << "|               Наибольшая группа" << '|' << endl;
+	cout << setw(43) << setfill('-') << '|' << setw(43) << '|' << '|' << endl;
+	cout << setw(17) << setfill(' ') << "|   Фамилия ИО" << "| Возр |" << " Сем.п |" << " Дет |" << " Пр ";
+	cout << setw(17) << setfill(' ') << "|   Фамилия ИО" << "| Возр |" << " Сем.п |" << " Дет |" << " Пр |" << endl;
+	cout << setw(86) << setfill('-') << '|' <<'|' << endl;
 	while (!least.eof() && !most.eof()) {
 		least.read((char*)&p1, sizeof(p1));
 		most.read((char*)&p2, sizeof(p2));
-		cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
-		cout << '|' << setfill(' ') << setw(43) << p1 << '|' << setw(43) << p2 << '|' << endl;
-		
-		//println(p1); println(p2); cout << '|' << endl;
-		
-		cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
-		cout << setw(44) << setfill('-') << '|' << setw(44) << '|' << '|' << endl;
+		cout << setfill(' ') <<  setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|'
+			<< setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|' << '|' << endl;
+		cout << setfill(' ') << '|' << left << setw(16) << p1 << "|  " << setw(4) << 2023 - p1.bdate.year << "|   " << setw(4)
+			<< p1.fam << "|  " << setw(3) << p1.childAmount << "| " << setw(3) << p1.prof << "|";
+		cout << setfill(' ') << left << setw(16) << p2 << "|  " << setw(4) << 2023 - p2.bdate.year << "|   " << setw(4)
+			<< p2.fam << "|  " << setw(3) << p2.childAmount << "| " << setw(3) << p2.prof << "|" << endl;
+		cout << setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|'
+			<< setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|' << '|' << endl;
+		cout << setw(86) << setfill('-') << '|' << '|' << endl;
 	}
 	if (least.eof()) {
 		while (!most.eof()) {
 			most.read((char*)&p1, sizeof(p1));
-			cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
-			cout << '|' << setfill(' ') << setw(43) << p1 << setw(44) << '|' << '|' << endl;
+			cout << setfill(' ') << setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|'
+				<< setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|' << '|' << endl;
+			cout << setfill(' ') << '|' << left << setw(16) << p1 << "|  " << setw(4) << 2023 - p1.bdate.year << "|   " << setw(4)
+				<< p1.fam << "|  " << setw(3) << p1.childAmount << "| " << setw(3) << p1.prof
+				<< setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|' << '|' << endl;
 			
-			//println(p1); cout << setw(44) << '|' << '|' << endl;
-			
-			cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
-			cout << setw(44) << setfill('-') << '|' << setw(44) << '|' << '|' << endl;
+
+			cout << setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|'
+				<< setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|' << '|' << endl;
+			cout << setw(86) << setfill('-') << '|' << '|' << endl;
 		}
 	}
 	else if (most.eof()) {
 		while (!least.eof()) {
 			least.read((char*)&p2, sizeof(p2));
-			cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
-			cout << '|' << setfill(' ') << setw(43) << ' ' << '|' << setw(43) << p2 << '|' << endl;
-			cout << setw(44) << setfill(' ') << '|' << setw(44) << '|' << '|' << endl;
-			cout << setw(44) << setfill('-') << '|' << setw(44) << '|' << '|' << endl;
+			cout << setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|' << '|' <<
+				setfill(' ') << left << setw(16) << p2 << "|  " << setw(4) << 2023 - p2.bdate.year << "|   " << setw(4)
+				<< p2.fam << "|  " << setw(3) << p2.childAmount << "| " << setw(3) << p2.prof << "|" << endl;
+
 		}
 	}
 	least.close();
@@ -184,11 +191,11 @@ void TaskB() {
 
 int main() {
 	setlocale(LC_ALL, "rus");
-	/*ifstream in("work.bin", ios::binary);
+	/*ifstream in("base.txt");
 	Edu min, max;
 	TaskAAux(in, min, max);
 	in.close();
-	in.open("work.bin", ios::binary);
+	in.open("base.txt");
 	TaskAMain(in,min,max);
 	in.close();*/
 	TaskB();
