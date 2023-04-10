@@ -138,8 +138,8 @@ void TaskAMain(ifstream& in, Edu min, Edu max) {
 }
 
 void TaskB() {
-	ifstream least("least.bin", ios::binary);
-	ifstream most("most.bin", ios::binary);
+	ifstream most("least.bin", ios::binary);
+	ifstream least("most.bin", ios::binary);
 	pinfo p1, p2;
 	cout << setw(88) << setfill('-') << '\n';
 	cout.setf(ios::left);
@@ -179,10 +179,14 @@ void TaskB() {
 	else if (most.eof()) {
 		while (!least.eof()) {
 			least.read((char*)&p2, sizeof(p2));
+			cout << setfill(' ') << setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|'
+				<< setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|' << '|' << endl;
 			cout << setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|' << '|' <<
 				setfill(' ') << left << setw(16) << p2 << "|  " << setw(4) << 2023 - p2.bdate.year << "|   " << setw(4)
 				<< p2.fam << "|  " << setw(3) << p2.childAmount << "| " << setw(3) << p2.prof << "|" << endl;
-
+			cout << setfill(' ') << setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|'
+				<< setw(17) << '|' << setw(7) << '|' << setw(8) << '|' << setw(6) << '|' << setw(5) << '|' << '|' << endl;
+			cout << setw(86) << setfill('-') << '|' << '|' << endl;
 		}
 	}
 	least.close();
