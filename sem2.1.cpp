@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <string>
@@ -91,11 +91,6 @@ ofstream& operator << (ofstream& out, pinfo a) {
 		<< a.adr.city << ' ' << a.adr.street << ' ' << a.adr.house << ' ' << a.adr.apt << ' ' << a.phone;
 	return out;
 }
-
-//void println(pinfo a) {
-//	cout << '|' << setw(MAX_NAME) << setfill(' ') << a.familia << ' ' << a.name[0] << ". " << a.patronymic[0] << ". " << 2023 - a.bdate.year << ' ' << a.fam << ' ' <<
-//		a.childAmount << ' ' << setw(44 - MAX_NAME - 15) << a.prof;
-//}
 
 void createBinary(ifstream& in) {
 	ofstream out("work.bin", ios::binary);
@@ -195,12 +190,12 @@ void TaskB() {
 
 int main() {
 	setlocale(LC_ALL, "rus");
-	/*ifstream in("base.txt");
+	ifstream in("base.txt");
 	Edu min, max;
 	TaskAAux(in, min, max);
 	in.close();
 	in.open("base.txt");
 	TaskAMain(in,min,max);
-	in.close();*/
+	in.close();
 	TaskB();
 }
